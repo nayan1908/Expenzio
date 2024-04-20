@@ -3,6 +3,7 @@ import { lazy } from "react"
 const login = lazy(() => import("../pages/auth/Login"));
 const register = lazy(() => import("../pages/auth/Register"));
 const dashboard = lazy(() => import("../pages/dashboard/Dashboard"));
+const expense = lazy(() => import("../pages/expense/Expense"));
 
 const ROUTES = [
     {
@@ -27,6 +28,12 @@ const ROUTES = [
         path: "/dashboard",
         component: dashboard,
         key: "dashboard",
+        allowWithOutLogin: true
+    },
+    {
+        path: "/expense",
+        component: expense,
+        key: "expense",
         allowWithOutLogin: true
     }
 ];

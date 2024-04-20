@@ -4,7 +4,6 @@ import ROUTES from './routes/routes'
 import Loader from "./component/Loader/Loader";
 import enUS from 'antd-mobile/es/locales/en-US'
 import { setDefaultConfig } from 'antd-mobile';
-// import './App.css'
 
 function App() {
 
