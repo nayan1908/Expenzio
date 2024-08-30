@@ -1,18 +1,18 @@
 import { Ellipsis, Grid } from "antd-mobile";
 import { DownOutline, UpOutline } from 'antd-mobile-icons';
-import "./expense.css";
+import { formattedNumber } from "../../helper/general";
 
 const ExpenseContent = ({ data }) => {
     return (
         <Grid columns={12} gap={8}>
-            <Grid.Item span={9}>
+            <Grid.Item span={12} className="expense-title">
+                {data.title}
+            </Grid.Item>
+            <Grid.Item span={6}>
                 {data.date}
             </Grid.Item>
-            <Grid.Item span={3} className="expense-price">
-                {data.price}
-            </Grid.Item>
-            <Grid.Item span={12}>
-                {data.title}
+            <Grid.Item span={6} className="text-right">
+                {formattedNumber(data.price)}
             </Grid.Item>
 
             <Grid.Item span={12}>

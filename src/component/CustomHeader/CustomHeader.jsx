@@ -3,23 +3,29 @@ import { useNavigate } from "react-router-dom";
 import { List, NavBar, Popup } from "antd-mobile";
 import CustomAvatar from "../CustomAvatar/CustomAvatar";
 import { MENU_ARR } from "./custome-header-menu";
+import { deleteSession, getSession } from "../../helper/auth";
+import Logo from "../Loader/Logo/Logo";
 
-const user = {
-    name: " Novalee Spicer",
-    email: "novalee.spicer@gmail.com"
-};
-
-const CustomHeader = ({ title, children, className = "" }) => {
+const CustomHeader = ({ title, children, className = "", extraContent = null }) => {
     const navigate = useNavigate();
+    const session = getSession();
 
     const [visible, setVisible] = useState(false)
 
     const onBack = () => setVisible(true);
 
+    const menuOnClick = (menu) => {
+        if (menu.key === "logout") {
+            deleteSession();    // delete session and redirect to login
+            navigate(menu.url);
+        } else {
+            navigate(menu.url);
+        }
+    }
 
     return (
         <div className={className}>
-            <NavBar onBack={onBack} style={{padding: "0px"}}> {title} </NavBar>
+            <NavBar onBack={onBack} style={{ padding: "0px" }}> {title} </NavBar>
             <Popup
                 visible={visible}
                 onMaskClick={() => {
@@ -30,11 +36,14 @@ const CustomHeader = ({ title, children, className = "" }) => {
                 bodyStyle={{ width: '70vw' }}
             >
                 <List className="menu-list">
+                    <List.Item>
+                        <Logo />
+                    </List.Item>
                     <List.Item
-                        description={user.email}
-                        prefix={<CustomAvatar name={user.name} />}
+                        description={session.email}
+                        prefix={<CustomAvatar name={session.name} />}
                     >
-                        {user.name}
+                        {session.name}
                     </List.Item>
 
                     {MENU_ARR.map(menu =>
@@ -43,14 +52,17 @@ const CustomHeader = ({ title, children, className = "" }) => {
                             clickable
                             arrow={false}
                             prefix={menu.icon}
-                            onClick={() => navigate(menu.url)}
+                            onClick={() => menuOnClick(menu)}
                         >
                             {menu.name}
                         </List.Item>
                     )}
                 </List>
             </Popup>
-            {children}
+            {extraContent}
+            <div className="main-content">
+                {children}
+            </div>
         </div>
     )
 }

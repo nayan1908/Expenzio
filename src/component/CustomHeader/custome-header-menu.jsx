@@ -4,21 +4,25 @@ export const MENU_ARR = [
     {
         name: "Dashboard",
         url: "/dashboard",
-        icon: <BiGridAlt />
+        icon: <BiGridAlt />,
+        key: "dashboard"
     },
     {
         name: "Expense",
         url: "/expense",
-        icon: <BiWallet />
+        icon: <BiWallet />,
+        key: "expense"
     },
     {
         name: "Report",
         url: "",
-        icon: <BiFile />
+        icon: <BiFile />,
+        key: "report"
     },
     {
         name: "Logout",
         url: "/login",
-        icon: <BiLogOut />
+        icon: <BiLogOut />,
+        key: "logout"
     }
 ];

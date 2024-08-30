@@ -1,4 +1,3 @@
-// import LogoImg from "../../../assets/react.svg";
 import LogoImg from "../../../assets/expenzio-logo.svg";
 
 const Logo = () => {

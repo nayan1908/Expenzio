@@ -4,6 +4,7 @@ const login = lazy(() => import("../pages/auth/Login"));
 const register = lazy(() => import("../pages/auth/Register"));
 const dashboard = lazy(() => import("../pages/dashboard/Dashboard"));
 const expense = lazy(() => import("../pages/expense/Expense"));
+const addExpense = lazy(() => import("../pages/expense/AddExpense"));
 
 const ROUTES = [
     {
@@ -28,13 +29,19 @@ const ROUTES = [
         path: "/dashboard",
         component: dashboard,
         key: "dashboard",
-        allowWithOutLogin: true
+        allowWithOutLogin: false
     },
     {
         path: "/expense",
         component: expense,
         key: "expense",
-        allowWithOutLogin: true
+        allowWithOutLogin: false
+    },
+    {
+        path: "/expense/add",
+        component: addExpense,
+        key: "add_expense",
+        allowWithOutLogin: false
     }
 ];
 

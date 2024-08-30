@@ -1,25 +1,48 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Form, Input, Button, Dialog } from 'antd-mobile';
 import Logo from '../../component/Loader/Logo/Logo';
+import { apiRequest } from '../../helper/general';
+import DotLoader from '../../component/Loader/DotLoader';
+import { setSession } from '../../helper/auth';
+import PasswordInput from '../../component/PasswordInput/PasswordInput';
 
 const Login = () => {
     const navigate = useNavigate();
+    const [isLogin, setIsLogin] = useState(false);
 
-    const onFinish = (values) => {
-        // Dialog.alert({
-        //     content: <pre>{JSON.stringify(values, null, 2)}</pre>,
-        // })
+    const onFinish = async (values) => {
+        try {
+            setIsLogin(true);
 
-        navigate("/dashboard");
+            const apiParams = {
+                method: "POST",
+                apiParams: {
+                    email: values.email,
+                    password: values.password
+                }
+            };
+            const apiRes = await apiRequest("auth/login", apiParams);
+            if (apiRes?.settings?.success === 1) {
+                setSession(apiRes.data); // set session data
+                navigate("/dashboard");
+            } else {
+                Dialog.alert({ content: apiRes.settings.message });
+            }
+        } catch ({ message }) {
+            Dialog.alert({ content: message || "Something went wrong!" });
+        } finally {
+            setIsLogin(false);
+        }
     }
 
     return (
-        <div style={{ padding: "0 20px" }}>
+        <>
             <Form
                 onFinish={onFinish}
                 footer={
-                    <Button block type='submit' color='primary' size='large'>
-                        Login
+                    <Button block type='submit' color='primary' size='middle' disabled={isLogin ? 'disabled' : ''}>
+                        Login {isLogin && <DotLoader />}
                     </Button>
                 }
             >
@@ -36,16 +59,10 @@ const Login = () => {
                     <Input placeholder='Email' />
                 </Form.Item>
 
-                <Form.Item
-                    name='password'
-                    label='Password'
-                    rules={[{ required: true, message: 'Please enter password' }]}
-                >
-                    <Input type="password" placeholder='Password' />
-                </Form.Item>
+                <PasswordInput />
             </Form>
-            <p>Don't have an account <Link to="/register">Register</Link></p>
-        </div>
+            <p className="text-center">Don't have an account <Link to="/register">Register</Link></p>
+        </>
     );
 }
 

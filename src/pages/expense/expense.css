@@ -1,3 +1,26 @@
-.expense-list .expense-price{
-    text-align: end;
+.menu-list .adm-list-body {
+    font-size: 15px;
 }
+.expense-title {
+    font-size: 14px;
+}
+
+.adm-list-item {
+    line-height: 0.9;
+}
+
+.add-expense .adm-form-footer {
+    padding: 20px 0;
+}
+
+.search-bar-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.expense .adm-search-bar{
+    width: calc(100% - 48px);
+}
+
+
