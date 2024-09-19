@@ -1,36 +1,18 @@
-import { Button, Popup } from "antd-mobile";
-import { useState } from "react";
-import { FilterOutline } from 'antd-mobile-icons'
+import { Popup } from "antd-mobile";
 
 const CustomPopup = (props) => {
-    const { children, buttonTitle = null, position = "bottom" } = props;
-    const [isVisible, setIsVisible] = useState(false);
+    const { children, buttonTitle = null, popupIsOpen, popupOnClose, position = "bottom", ...rest } = props;
 
     return (
-        <>
-            <Button
-                onClick={() => {
-                    setIsVisible(true)
-                }}
-                fill='none'
-            >
-                <FilterOutline fontSize={24} /> {buttonTitle}
-            </Button>
-            <Popup
-            onClose={()=>{  
-                setIsVisible(false)
-              }}
-                showCloseButton
-                visible={isVisible}
-                // onMaskClick={() => {
-                //     setIsVisible(false)
-                // }}
-                position={position}
-                // bodyStyle={{ width: '60vw' }}
-            >
-                {children}
-            </Popup>
-        </>
+        <Popup
+            {...rest}
+            showCloseButton
+            position={position}
+            visible={popupIsOpen}
+            onClose={popupOnClose}
+        >
+            {children}
+        </Popup>
     );
 }
 

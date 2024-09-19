@@ -1,6 +1,7 @@
 import axios from "axios";
 import { deleteSession, getSession } from "../helper/auth";
 import { API_END_POINT } from "../config/config";
+import dayjs from "dayjs";
 
 export const apiRequest = async (apiName, apiSetting = {}) => {
 
@@ -127,3 +128,14 @@ export const formattedNumber = (number = 0, prefix = '', suffix = '') => {
     return prefix + formatted + suffix;
 }
 
+export const formattedDate = (date = null, format = 'DD-MM-YYYY') => {
+    if(date != undefined || date !== null){
+        return dayjs(date).format(format);
+    }
+}
+
+export const systemDate = (date = null, format = 'YYYY-MM-DD') => {
+    if(date != undefined || date !== null){
+        return dayjs(date).format(format);
+    }
+}

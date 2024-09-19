@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Form, Input } from "antd-mobile";
+import { Button, Form, Input, TextArea } from "antd-mobile";
 import CustomHeader from "../../component/CustomHeader/CustomHeader";
 import { apiRequest } from "../../helper/general";
 import MaskLoader from "../../component/Loader/MaskLoader";
+import dayjs from "dayjs";
 
 const AddExpense = () => {
     const navigate = useNavigate();
+    const initialValues = {
+        // date: '2024-09-02'
+    }
     const [form] = Form.useForm();
     const [isSaving, setIsSaving] = useState(false);
 
@@ -18,6 +22,7 @@ const AddExpense = () => {
                 method: "POST",
                 apiParams: {
                     title: values.title,
+                    description: values.description,
                     price: values.price,
                     date: values.date
                 }
@@ -40,6 +45,7 @@ const AddExpense = () => {
                 className="add-expense"
                 form={form}
                 onFinish={onFinish}
+                initialValues={initialValues}
                 footer={
                     <div className="button-container">
                         <Button block type='button' size='middle' onClick={() => navigate('/expense')}>
@@ -63,6 +69,17 @@ const AddExpense = () => {
                     ]}
                 >
                     <Input placeholder='Title' />
+                </Form.Item>
+
+                <Form.Item
+                    name='description'
+                    label='Description'
+                    normalize={value => value.trimStart()}
+                    rules={[
+                        { max: 150 }
+                    ]}
+                >
+                    <TextArea rows={3} placeholder="Description"/>
                 </Form.Item>
 
                 <Form.Item
