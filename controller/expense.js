@@ -58,13 +58,21 @@ exports.getExpenses = async (req, res, next) => {
 
         let query = { user_id: req.user._id };
 
+        if (req.body?.title) {
+            query.title = { $regex:  req.body.title, $options: 'i'  };
+        }
+
+        if(req.body?.description){
+            query.description = { $regex: req.body.description, $options : 'i'};
+        }
+
         if (start_date, end_date) {
             query.date = {
                 $gte: new Date(start_date),
-                $lt: new Date(end_date)
+                $lte: new Date(end_date)
             }
         }
-
+        console.log(query);
         const skip = (page_index - 1) * per_page;
 
         const limit = per_page;
@@ -98,8 +106,6 @@ exports.getExpenses = async (req, res, next) => {
 
         const hasNextPage = page_index < totalPages;
         const hasPrevPage = page_index > 1;
-
-        console.log({ skip, hasNextPage, hasPrevPage });
 
         const pagination = {
             page_index: parseInt(page_index),
@@ -189,6 +195,7 @@ exports.deleteExpense = async (req, res, next) => {
         }
         return API_RESPONSE.apiSuccess(req, res, "Expense deleted successfully");
     } catch (err) {
+        console.log({ err })
         if (!err.statusCode) {
             err.statusCode = 500;
         }
