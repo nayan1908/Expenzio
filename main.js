@@ -4,8 +4,11 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const multer = require("multer");
 const { PORT, MONGODB_URL } = require("./config/env-variable");
+
 const authRoutes = require("./routes/auth");
 const expenseRouters = require("./routes/expense");
+const dashboardRouters = require("./routes/dashboard");
+
 require("./utility/global");
 
 const app = express();
@@ -18,6 +21,7 @@ app.use(form.any());
 
 app.use(cors());
 app.use("/auth", authRoutes);
+app.use("/dashboard", dashboardRouters);
 app.use("/expense", expenseRouters);
 
 app.use((err, req, res, next) => {

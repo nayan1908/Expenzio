@@ -72,7 +72,7 @@ exports.getExpenses = async (req, res, next) => {
                 $lte: new Date(end_date)
             }
         }
-        console.log(query);
+        
         const skip = (page_index - 1) * per_page;
 
         const limit = per_page;
