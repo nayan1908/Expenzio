@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Form, Input, Button, Dialog } from 'antd-mobile';
 import Logo from '../../component/Loader/Logo/Logo';
 import { apiRequest } from '../../helper/general';
@@ -7,6 +7,7 @@ import DotLoader from '../../component/Loader/DotLoader';
 import PasswordInput from '../../component/PasswordInput/PasswordInput';
 
 const Register = () => {
+    const navigate = useNavigate();
     const [isSaving, setIsSaving] = useState(false);
 
     const onFinish = async (values) => {
@@ -26,7 +27,12 @@ const Register = () => {
 
             const apiRes = await apiRequest("auth/register", apiParams);
             if (apiRes.settings?.success === 1) {
-                Dialog.alert({ content: apiRes.settings?.message });
+                Dialog.alert({
+                    content: apiRes.settings?.message,
+                    onConfirm: () => {
+                        navigate("/login");
+                    },
+                });
             } else {
                 Dialog.alert({ content: apiRes.settings?.message });
             }

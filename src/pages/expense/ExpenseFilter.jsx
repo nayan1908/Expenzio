@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { Button, DatePicker, Form, Input, SearchBar } from "antd-mobile";
+import { Button, Form, Input, SearchBar } from "antd-mobile";
 import CustomPopup from "../../component/CustomPopup/CustomPopup";
-import { formattedDate } from "../../helper/general";
 import { FilterOutline } from 'antd-mobile-icons';
+import CustomDatePicker from "../../component/CustomDatePicker/CustomDatePicker";
 
 const ExpenseFilter = (props) => {
     const { getExpenseData, setPagination } = props;
 
     const [form] = Form.useForm();
     const [filterIsOpen, setFilterIsOpen] = useState(false);
-    const [datePopupIsVisible, setDatePopupIsVisible] = useState(false);
     const [date, setDate] = useState(null);
 
     const onClearClick = () => {
@@ -29,10 +28,9 @@ const ExpenseFilter = (props) => {
         console.log(value)
     }
 
-    const handleDateChange = (value) => {
+    const dateOnChange = (value) => {
         setDate(value);
-        setDatePopupIsVisible(false);
-    };
+    }
 
     const formOnFinish = formData => {
         formData.is_new_request = true;
@@ -55,8 +53,8 @@ const ExpenseFilter = (props) => {
             <CustomPopup
                 popupIsOpen={filterIsOpen}
                 popupOnClose={() => setFilterIsOpen(false)}
-                // bodyStyle={{ height: '150vw' }}
-                // closeIcon={<Form.Header>Filter</Form.Header>}
+            // bodyStyle={{ height: '150vw' }}
+            // closeIcon={<Form.Header>Filter</Form.Header>}
 
             >
                 <Form
@@ -101,29 +99,7 @@ const ExpenseFilter = (props) => {
                         <Input type="number" placeholder="Price" step="1" clearable />
                     </Form.Item>
 
-                    <Form.Item
-                        // arrow={false}
-                        name="date"
-                        label="Date"
-                        onClick={() => {
-                            setDatePopupIsVisible(true);
-                        }}
-                    >
-                        <Input
-                            type="text"
-                            placeholder="Date"
-                            value={date ? formattedDate(date) : 'Select date'}
-                            onClick={() => setDatePopupIsVisible(true)}
-                            readOnly
-                            clearable
-                        />
-                        <DatePicker
-                            visible={datePopupIsVisible}
-                            onConfirm={handleDateChange}
-                            onCancel={() => setDatePopupIsVisible(false)}
-                            max={new Date()}
-                        />
-                    </Form.Item>
+                    <CustomDatePicker date={date} onChange={dateOnChange} />
                 </Form>
             </CustomPopup>
         </div>

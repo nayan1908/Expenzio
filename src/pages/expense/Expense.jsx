@@ -53,8 +53,8 @@ const Expense = () => {
             const apiRes = await apiRequest("expense", apiParams);
             if (apiRes?.settings?.success === 1) {
                 if (apiRes.data?.length > 0) {
-                    setData(prev => [...prev, ...apiRes.data]);
-                    // setData(prev => apiRes.data);
+                    // setData(prev => [...prev, ...apiRes.data]);
+                    setData(prev => apiRes.data);
                     setHasMore(apiRes.pagination.has_next_page);
                     setPagination(apiRes.pagination);
                 } else {

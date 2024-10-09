@@ -2,17 +2,21 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, Input, TextArea } from "antd-mobile";
 import CustomHeader from "../../component/CustomHeader/CustomHeader";
-import { apiRequest } from "../../helper/general";
+import { apiRequest, systemDate } from "../../helper/general";
 import MaskLoader from "../../component/Loader/MaskLoader";
 import dayjs from "dayjs";
+import CustomDatePicker from "../../component/CustomDatePicker/CustomDatePicker";
 
 const AddExpense = () => {
     const navigate = useNavigate();
-    const initialValues = {
-        // date: '2024-09-02'
-    }
+    const initialValues = {};
     const [form] = Form.useForm();
+    const [date, setDate] = useState(dayjs());
     const [isSaving, setIsSaving] = useState(false);
+
+    const dateOnChange = (value) => {
+        setDate(value);
+    }
 
     const onFinish = async (values) => {
         try {
@@ -24,9 +28,10 @@ const AddExpense = () => {
                     title: values.title,
                     description: values.description,
                     price: values.price,
-                    date: values.date
+                    date: systemDate(date)
                 }
             };
+
             const apiRes = await apiRequest("expense/add", apiParams);
             if (apiRes?.settings?.success === 1) {
                 navigate("/expense");
@@ -79,7 +84,7 @@ const AddExpense = () => {
                         { max: 150 }
                     ]}
                 >
-                    <TextArea rows={3} placeholder="Description"/>
+                    <TextArea rows={3} placeholder="Description" />
                 </Form.Item>
 
                 <Form.Item
@@ -93,15 +98,7 @@ const AddExpense = () => {
                     <Input type="number" placeholder='Price' step="1" />
                 </Form.Item>
 
-                <Form.Item
-                    name='date'
-                    label='Date'
-                    rules={[
-                        { required: true, message: 'Please select date' },
-                    ]}
-                >
-                    <Input type="date" placeholder='Date' />
-                </Form.Item>
+                <CustomDatePicker date={date} onChange={dateOnChange} />
             </Form>
         </CustomHeader>
 

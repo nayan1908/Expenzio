@@ -1,3 +1,13 @@
+.dashboard .adm-card{
+  background-color: var(--adm-color-box);
+  margin-bottom: 8px;
+}
+
+.dashboard .adm-card-body{
+  display: flex;
+  justify-content: space-between;
+}
+
 /* .app {
   height: 100vh;
   display: flex;

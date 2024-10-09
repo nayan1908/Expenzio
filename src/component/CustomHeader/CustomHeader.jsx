@@ -36,7 +36,7 @@ const CustomHeader = ({ title, children, className = "", extraContent = null }) 
                 bodyStyle={{ width: '70vw' }}
             >
                 <List className="menu-list">
-                    <List.Item>
+                    <List.Item onClick={() => navigate("/dashboard")} arrow={false}>
                         <Logo />
                     </List.Item>
                     <List.Item
