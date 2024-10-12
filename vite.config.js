@@ -9,7 +9,7 @@ export default ({ mode }) => {
       react(),
     ],
     server: {
-      // port: process.env.VITE_PORT,
+      port: process.env.VITE_PORT,
       host: true,
     },
   });
