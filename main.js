@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const multer = require("multer");
 const { PORT, MONGODB_URL } = require("./config/env-variable");
+const { apiLogger } = require("./controller/log");
 
 const authRoutes = require("./routes/auth");
 const expenseRouters = require("./routes/expense");
@@ -20,6 +21,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(form.any());
 
 app.use(cors());
+app.use(apiLogger); // Write request & response log in db
+
 app.use("/auth", authRoutes);
 app.use("/dashboard", dashboardRouters);
 app.use("/expense", expenseRouters);

@@ -12,7 +12,7 @@ exports.apiSuccess = (req, res, message, data = null, pagination = null, statusC
             resData.pagination = pagination;
         }
     }
-    
+    res.locals.response = resData;
     res.status(statusCode).json(resData);
 }
 
@@ -28,6 +28,7 @@ exports.apiFailure = (req, res, message, statusCode, errorTrace = null) => {
         resData.error = errorTrace;
     }
 
+    res.locals.response = resData;
     res.status(statusCode).json(resData);
 
 }

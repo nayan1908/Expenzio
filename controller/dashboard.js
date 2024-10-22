@@ -30,8 +30,6 @@ exports.getDashboardData = async (req, res, next) => {
             }
         ]).exec();
 
-        console.log({result});
-
         return API_RESPONSE.apiSuccess(req, res, "Data fetched successfully", result);
     } catch (err) {
         return API_RESPONSE.apiFailure(req, res, err.message, 500);
