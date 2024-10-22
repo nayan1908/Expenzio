@@ -26,20 +26,29 @@ const Dashboard = () => {
         getDashboardData();
     }, []);
 
-    return (
-        <>
-            <CustomHeader title="Dashboard" className="dashboard">
-                {/* <p>Dashboard data will come here</p> */}
-                {isLoading && <SpinLoader />}
-                {!isLoading && data.length === 0 && <NoRecord />}
-                {!isLoading && data?.length > 0 && data.map(item => (
-
-                    <Card title={formattedDate(item.month_year, 'MMM-YYYY')}>
+    let content = <SpinLoader />;
+    if (!isLoading) {
+        if (data.length === 0) {
+            content = <NoRecord />
+        } else {
+            let totalAmt = data.reduce((acc, item) => acc + item.total, 0);
+            content = <>
+                <Card title="Total" extra={<b>{formattedNumber(totalAmt)}</b>}/>
+                {data.map(item => (
+                    <Card key={item.month_year} title={formattedDate(item.month_year, 'MMM-YYYY')}>
                         <span>Total</span>
                         <span>{formattedNumber(item.total)}</span>
                     </Card>
-                ))
-                }
+                ))}
+            </>
+        }
+    }
+
+    return (
+        <>
+            <CustomHeader title="Dashboard" className="dashboard">
+              
+                {content}
             </CustomHeader>
         </>
     )
