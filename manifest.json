@@ -1,0 +1,35 @@
+{
+    "name": "Expenzio",
+    "short_name": "Expenzio",
+    "description": "Expenzio app is record your expenses",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "icons": [
+      {
+        "src": "public/icons/logo_192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "public/icons/logo_512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "screenshots": [
+      {
+        "src": "public/screenshots/desktop-screenshot-wide.png",
+        "sizes": "800x600",
+        "type": "image/png",
+        "form_factor": "wide"
+      },
+      {
+        "src": "public/screenshots/mobile-screenshot.png",
+        "sizes": "360x640",
+        "type": "image/png"
+      }
+    ]
+  }
+  

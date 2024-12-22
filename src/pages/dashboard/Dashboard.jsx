@@ -28,19 +28,19 @@ const Dashboard = () => {
 
     return (
         <>
-            <CustomHeader title="Dashboard" className="dashboard">
-                {/* <p>Dashboard data will come here</p> */}
-                {isLoading && <SpinLoader />}
-                {!isLoading && data.length === 0 && <NoRecord />}
-                {!isLoading && data?.length > 0 && data.map(item => (
+        <CustomHeader title="Dashboard" className="dashboard">
+            {/* <p>Dashboard data will come here</p> */}
+            {isLoading && <SpinLoader />}
+            {!isLoading && data.length === 0 && <NoRecord />}
+            {!isLoading && data?.length > 0 && data.map(item => (
 
-                    <Card title={formattedDate(item.month_year, 'MMM-YYYY')}>
-                        <span>Total</span>
-                        <span>{formattedNumber(item.total)}</span>
-                    </Card>
-                ))
-                }
-            </CustomHeader>
+                <Card title={formattedDate(item.month_year, 'MMM-YYYY')}>
+                    <span>Total</span>
+                    <span>{formattedNumber(item.total)}</span>
+                </Card>
+            ))
+            }
+        </CustomHeader>
         </>
     )
 }
